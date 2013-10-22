@@ -6,7 +6,7 @@
 	<article class="twoThirds">
 	    <h1>Login</h1>
 	    <?php if ($form->isSubmitted() && $form->validate()) {
-	        echo '<p class="error">The values submitted do not match those on file!</p>';
+	        echo '<p class="error">The username or password is not valid!</p>';
 	    }?>
 	    <?php echo $form; ?>
 	</article>

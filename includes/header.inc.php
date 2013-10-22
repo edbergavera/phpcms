@@ -22,7 +22,7 @@
         <h1>OOP Class<span>PHP object-Oriented Programming is FUN!</span></h1>
         <nav>
             <ul>
-                <li><a href="index.php">Home</a></li><li><a href="archives.php">Archives</a></li><li><a href="contact.php">Contact</a></li><?php if ($user && $user->isAdmin()) echo '<li><a href="add_page.php">Add a New Page</a></li>'; ?><li><?php if ($user) { echo '<a href="logout.php">Logout</a>'; } else { echo '<a href="login.php">Login</a>'; } ?>
+                <li><a href="index.php">Home</a></li><li><a href="archives.php">Archives</a></li><li><a href="contact.php">Contact</a></li><li><a href="register.php">Register</a></li><li><?php if ($user) { echo '<a href="logout.php">Logout</a>'; } else { echo '<a href="login.php">Login</a>'; } ?>
             </ul>
         </nav>
     </header>

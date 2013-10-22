@@ -27,18 +27,24 @@ $password->setLabel('Password');
 $password->addFilter('trim');
 $password->addRule('required', 'Please enter your password.');
 
-$userType = $form->addElement('fieldset')->setLabel('Privileges');
-$userType->addElement(
-    'radio', 'type', array('value' => 'public'), array('content' => 'Public User')
-);
-$userType->addElement(
-    'radio', 'type', array('value' => 'author'), array('content' => 'Author')
+$options = array(
+    1 => 'public', 2 => 'author', 3 => 'admin'
 );
 
-$userType->addElement(
-    'radio', 'type', array('value' => 'admin'), array('content' => 'Admin')
-);
-$userType->addRule('required', 'Please select privilige');
+$usertype = $form->addElement('select', 'usertype', null, array('options' => $options, 'label' => 'Privileges'));
+
+// $userType = $form->addElement('fieldset')->setLabel('Privileges');
+// $userType->addElement(
+//     'radio', 'type', array('value' => 'public'), array('content' => 'Public User')
+// );
+// $userType->addElement(
+//     'radio', 'type', array('value' => 'author'), array('content' => 'Author')
+// );
+
+// $userType->addElement(
+//     'radio', 'type', array('value' => 'admin'), array('content' => 'Admin')
+// );
+// $userType->addRule('required', 'Please select privilige');
 
 // Add the submit button:
 $form->addElement('submit', 'submit', array('value'=>'Add User'));
@@ -50,9 +56,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { // Handle the form submission
     if ($form->validate()) {
         
         // Check against the database:
-        $q = 'INSERT INTO users (userType, username, email, pass, dateAdded) VALUES (:userType, :username, :email, SHA1(:pass), NOW())';
+        $q = 'INSERT INTO users (userType, username, email, pass, dateAdded) VALUES (:usertype, :username, :email, SHA1(:pass), NOW())';
         $stmt = $pdo->prepare($q);
-        $r = $stmt->execute(array(':userType' => $userType->getValue(), ':username' => $username->getValue(), ':email' => $email->getValue(), ':pass' => $password->getValue()));
+        $r = $stmt->execute(array(':usertype' => $usertype->getValue(), ':username' => $username->getValue(), ':email' => $email->getValue(), ':pass' => $password->getValue()));
         // var_dump($userType->getValue());
         // Try to fetch the results:
         if ($r) {
@@ -60,17 +66,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { // Handle the form submission
             $user = $stmt->fetch();
         }
         
-        // Store the user in the session and redirect:
-        if ($user) {
+        // // Store the user in the session and redirect:
+        // if ($user) {
     
-            // Store in a session:
-            $_SESSION['user'] = $user;
+        //     // Store in a session:
+        //     $_SESSION['user'] = $user;
     
-            // Redirect:
-            header("Location:index.php");
-            exit;
+        //     // Redirect:
+        //     header("Location:index.php");
+        //     exit;
     
-        }
+        // }
         
     } // End of form validation IF.
     

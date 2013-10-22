@@ -10,7 +10,7 @@ include('includes/header.inc.php');
 // Fetch the three most recent pages:
 try {
     
-    $q = 'SELECT id, title, DATE_FORMAT(dateAdded, "%e %M %Y") AS dateAdded1 FROM pages ORDER BY dateAdded DESC'; 
+    $q = 'SELECT id, title, dateAdded FROM pages ORDER BY dateAdded DESC'; 
     $r = $pdo->query($q);
     
     // Check that rows were returned:
